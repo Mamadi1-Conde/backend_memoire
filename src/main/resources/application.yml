@@ -1,0 +1,16 @@
+spring:
+  application.name: springboot-starter
+  datasource:
+    url: jdbc:h2:mem:starter;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate.ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate.format_sql: true
+  h2.console.enabled: true
+server.port: 8080
+jwt:
+  secret: "changez-cette-cle-en-production-elle-doit-faire-au-moins-256-bits-soit-32-caracteres"
+  expiration-ms: 900000
