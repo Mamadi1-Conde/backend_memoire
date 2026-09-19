@@ -1,6 +1,6 @@
 package com.example.starter.repository;
 
-import com.example.starter.domaine.Annonce;
+import com.example.starter.domain.Annonce;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

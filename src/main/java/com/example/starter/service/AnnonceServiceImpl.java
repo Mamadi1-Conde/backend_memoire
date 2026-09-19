@@ -1,8 +1,8 @@
 package com.example.starter.service;
 
-import com.example.starter.domaine.Annonce;
-import com.example.starter.domaine.Bien;
-import com.example.starter.domaine.Utilisateur;
+import com.example.starter.domain.Annonce;
+import com.example.starter.domain.Bien;
+import com.example.starter.domain.Utilisateur;
 import com.example.starter.dto.AnnonceRequest;
 import com.example.starter.dto.AnnonceResponse;
 import com.example.starter.exception.ResourceNotFoundException;

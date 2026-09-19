@@ -2,7 +2,7 @@ spring:
   application.name: springboot-starter
   datasource:
     url: jdbc:h2:mem:starter;DB_CLOSE_DELAY=-1
-    username: sa
+    username: samakeur-db
     password:
   jpa:
     hibernate.ddl-auto: update

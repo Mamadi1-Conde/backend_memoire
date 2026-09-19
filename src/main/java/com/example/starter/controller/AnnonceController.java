@@ -1,6 +1,6 @@
 package com.example.starter.controller;
 
-import com.example.starter.domaine.Annonce;
+import com.example.starter.domain.Annonce;
 import com.example.starter.dto.AnnonceRequest;
 import com.example.starter.dto.AnnonceResponse;
 import com.example.starter.service.AnnonceService;

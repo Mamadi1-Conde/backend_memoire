@@ -1,0 +1,2 @@
+SPRING_DATASOURCE_URL=jdbc:mysql://samakeur-db:3306/SamaKeur?
+useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true

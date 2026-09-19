@@ -1,4 +1,4 @@
-package com.example.starter.domaine;
+package com.example.starter.domain;
 import com.example.starter.domain.BaseEntity;
 import jakarta.persistence.*;
 //import org.aspectj.bridge.Message;

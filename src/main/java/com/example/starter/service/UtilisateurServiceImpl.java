@@ -1,6 +1,6 @@
 package com.example.starter.service;
 
-import com.example.starter.domaine.Utilisateur;
+import com.example.starter.domain.Utilisateur;
 import com.example.starter.dto.UtilisateurRequest;
 import com.example.starter.dto.UtilisateurResponse;
 import com.example.starter.exception.ResourceNotFoundException;

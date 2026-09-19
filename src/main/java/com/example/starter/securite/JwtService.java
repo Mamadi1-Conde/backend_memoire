@@ -1,58 +1,73 @@
 package com.example.starter.securite;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
 
-    private final SecretKey cle;
-    private final long dureeExpirationMs;
+    private static final String SECRET_KEY = "NDAwNTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MA==";
+    private static final long EXPIRATION_TIME = 86400000; // 24 heures en ms
 
-    public JwtService(@Value("${jwt.secret}") String secret,
-                      @Value("${jwt.expiration-ms}") long dureeExpirationMs) {
-        this.cle = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        this.dureeExpirationMs = dureeExpirationMs;
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
     }
 
-    public String genererToken(UserDetails userDetails) {
-        Date maintenant = new Date();
-        Date expiration = new Date(maintenant.getTime() + dureeExpirationMs);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
 
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("role", userDetails.getAuthorities());
+        return generateToken(extraClaims, userDetails);
+    }
+
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
-                .subject(userDetails.getUsername())
-                .claim("roles", userDetails.getAuthorities())
-                .issuedAt(maintenant)
-                .expiration(expiration)
-                .signWith(cle)
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extraireEmail(String token) {
-        return extraireToutesLesClaims(token).getSubject();
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
-    public boolean estValide(String token, UserDetails userDetails) {
-        String email = extraireEmail(token);
-        return email.equals(userDetails.getUsername()) && !estExpire(token);
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
     }
 
-    private boolean estExpire(String token) {
-        return extraireToutesLesClaims(token).getExpiration().before(new Date());
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
     }
 
-    private io.jsonwebtoken.Claims extraireToutesLesClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(cle)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+    private Claims extractAllClaims(String token) {
+    return Jwts.parser()
+            .verifyWith((javax.crypto.SecretKey) getSignInKey())
+            .build()
+            .parseSignedClaims(token)
+            .getPayload();
+}
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
