@@ -1,4 +1,7 @@
-target/
-.idea/
-*.iml
-.vscode/
+target/ 
+.idea/ 
+*.iml 
+.vscode/ 
+.env 
+.env.local 
+.github/modernize/ 

@@ -2,7 +2,7 @@ package com.example.starter.mapper;
 
 import com.example.starter.dto.UtilisateurRequest;
 import com.example.starter.dto.UtilisateurResponse;
-import com.example.starter.domaine.Utilisateur;
+import com.example.starter.domain.Utilisateur;
 import org.springframework.stereotype.Component;
 
 @Component

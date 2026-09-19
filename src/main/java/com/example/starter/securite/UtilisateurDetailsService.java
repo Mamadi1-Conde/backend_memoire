@@ -1,6 +1,6 @@
 package com.example.starter.securite;
 
-import com.example.starter.domaine.Utilisateur;
+import com.example.starter.domain.Utilisateur;
 import com.example.starter.repository.UtilisateurRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

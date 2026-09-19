@@ -1,6 +1,6 @@
 package com.example.starter.dto;
 
-import com.example.starter.domaine.Message;
+import com.example.starter.domain.Message;
 
 import java.time.Instant;
 

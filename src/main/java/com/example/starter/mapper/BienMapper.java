@@ -2,7 +2,7 @@ package com.example.starter.mapper;
 
 import com.example.starter.dto.BienRequest;
 import com.example.starter.dto.BienResponse;
-import com.example.starter.domaine.Bien;
+import com.example.starter.domain.Bien;
 import org.springframework.stereotype.Component;
 
 @Component

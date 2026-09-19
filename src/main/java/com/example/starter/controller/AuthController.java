@@ -28,7 +28,7 @@ public class AuthController {
         );
 
         UtilisateurDetails details = (UtilisateurDetails) authentication.getPrincipal();
-        String token = jwtService.genererToken(details);
+        String token = jwtService.generateToken(details);
 
         String role = details.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
         return new LoginResponse(token, details.getUsername(), role);

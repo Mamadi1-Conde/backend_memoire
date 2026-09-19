@@ -1,6 +1,6 @@
 package com.example.starter.dto;
 
-import com.example.starter.domaine.Annonce;
+import com.example.starter.domain.Annonce;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

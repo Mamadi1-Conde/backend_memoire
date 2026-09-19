@@ -1,6 +1,6 @@
 package com.example.starter.dto;
 
-import com.example.starter.domaine.Utilisateur;
+import com.example.starter.domain.Utilisateur;
 
 import java.time.Instant;
 
